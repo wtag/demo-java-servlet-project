@@ -9,12 +9,12 @@
 <body>
 	<form action="insertproduct" method="post">
 		<label>Name</label>
-		<input type="text" name="pname" required="required"><br><br>
+		<input type="text" name="product_name" required="required"><br><br>
 		
 		<label>Quantity</label>
-		<input type="number" name="quantity" required="required" min="0"><br><br>
+		<input type="number" name="product_quantity" required="required" min="0"><br><br>
 		<label>Price</label>
-		<input type="number" name="price" required="required" min = "0"><br><br>
+		<input type="number" name="product_price" required="required" min = "0"><br><br>
 		<input type="submit">
 	</form>
 </body>
