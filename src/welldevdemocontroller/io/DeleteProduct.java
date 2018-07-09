@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import welldevdemomodel.io.SqlConnection;
+import Dao.ProductDaoImplement;
+import util.SqlConnection;
+import welldevdemomodel.io.Product;
 
 import java.sql.SQLException;
 
@@ -21,15 +23,17 @@ public class DeleteProduct extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		try {
-			
+
 	   String productid = request.getParameter("productid");	
+	   int productId= Integer.parseInt(productid);
 	   
-	   String sql = "delete from product where productid=?";
-		
-	    SqlConnection con= SqlConnection.connect();
-		con.DELETE(sql,productid);
-		
+	   
+	   Product product= new Product();
+	   product.setProductId(productId);
+	   
+	   ProductDaoImplement productDaoImplement= new ProductDaoImplement();
+	   
+	   productDaoImplement.deleteProduct(product);
 		
         HttpSession session = request.getSession();
 		
@@ -39,12 +43,7 @@ public class DeleteProduct extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("product.jsp");
 		rd.forward(request, response);
 	
-	}
 	
-	catch (SQLException e) {
-		
-		e.printStackTrace();
-	}
 	
 	}
     

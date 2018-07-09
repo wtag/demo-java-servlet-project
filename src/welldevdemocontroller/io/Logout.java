@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import welldevdemomodel.io.SqlConnection;
+import util.SqlConnection;
 
 
 @WebServlet("/Logout")

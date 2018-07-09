@@ -9,23 +9,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import welldevdemomodel.io.SqlConnection;
+import Dao.ProductDaoImplement;
+import util.SqlConnection;
+import welldevdemomodel.io.Product;
 
 public class AddProduct extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		try {
+
 		String pname= request.getParameter("pname");
 		String price= request.getParameter("price");
+		int productPrice= Integer.parseInt(price);
 		String quantity= request.getParameter("quantity");
+		int productQuantity= Integer.parseInt(quantity);
 		
+		Product product = new Product();
+		ProductDaoImplement productDaoImplement = new ProductDaoImplement();
+		product.setProductName(pname);
+		product.setPrice(productPrice);
+		product.setQuantity(productQuantity);
 		
-		String sql = "insert into product(Name,price,quantity) values (?,?,?) ";
+		productDaoImplement.insertProduct(product);
 		
-		SqlConnection con= SqlConnection.connect();
-		con.INSERT(sql,pname,price,quantity);
 		
         HttpSession session = request.getSession();
 		
@@ -35,12 +41,8 @@ public class AddProduct extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("product.jsp");
 		rd.forward(request, response);	
 		
-	}
 	
-	catch (SQLException e) {
-		e.printStackTrace();
-	}
-	
+
 	}
 
 }

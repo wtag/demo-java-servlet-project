@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import welldevdemomodel.io.SqlConnection;
+import Dao.UserDaoImplement;
+import util.SqlConnection;
+import welldevdemomodel.io.User;
 
 
 public class Login extends HttpServlet {
@@ -19,36 +21,27 @@ public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-try {
-			
+
 			String username= request.getParameter("username");
 			String password= request.getParameter("password");
 		
 
 			HttpSession session = request.getSession();
 			
-			String sql = "select username,password,iduser from user where username=? and password=?";
+			User user= new User();
+			UserDaoImplement userDaoImplement = new UserDaoImplement();
 			
-			SqlConnection con= SqlConnection.connect();
-			ResultSet res = con.login(sql,username,password);
+			user.setUsername(username);
+			user.setPassword(password);
+			
+			int result=userDaoImplement.getUser(user);
 
-			String UserName = null;
-			String Pass= null;
-			String Id=null;
 			
-			while(res.next())
-			{
-				UserName = res.getString("username");
-				Pass= res.getString("password");
-				Id=res.getString("iduser");
-				
-			}
-			
-			if (username.equals(UserName)&&password.equals(Pass))
+			if (result>0)
 			{
 				session.setAttribute("username",username);
 				session.setAttribute("password",password);
-				session.setAttribute("id",Id);
+				session.setAttribute("id",result);
 				
 				RequestDispatcher rd = request.getRequestDispatcher("Products");
 				rd.forward(request, response);	
@@ -59,12 +52,9 @@ try {
 				response.sendRedirect("login.jsp");
 			}
 
-		}
 		
-		catch (SQLException e) {
-			
-			e.printStackTrace();
-		}
+		
+	
 		
 	}
 

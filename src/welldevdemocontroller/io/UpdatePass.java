@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import welldevdemomodel.io.SqlConnection;
+import Dao.UserDaoImplement;
+import util.SqlConnection;
+import welldevdemomodel.io.User;
 
 
 @WebServlet("/UpdatePass")
@@ -23,7 +25,13 @@ public class UpdatePass extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		String password = (String) session.getAttribute("password");
-		String Id =       (String) session.getAttribute("id");
+		int Id =       (Integer) session.getAttribute("id");
+		
+		
+		User user= new User();
+		UserDaoImplement userDaoImplement = new UserDaoImplement();
+		user.setPassword(newpass);
+		user.setUserId(Id);
 		
 		if(password==null)
 		{
@@ -42,21 +50,11 @@ public class UpdatePass extends HttpServlet {
 			getServletContext().getRequestDispatcher("/updatepass.jsp").forward(request, response);
 		}
 		
-		else {
-			try {
-								
-				String sql = "Update user set password=? where iduser=?";
-				
-				SqlConnection con= SqlConnection.connect();
-				con.UpdatePass(sql,newpass,Id);				
+		else {			
+			userDaoImplement.updatePassword(user);
 				response.sendRedirect("login.jsp");
 			
-			}
 			
-             catch (SQLException e) {
-				
-				e.printStackTrace();
-			}
 		}
 	
 	}
