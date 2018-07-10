@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import util.Constans;
 import util.SqlConnection;
 import welldevdemomodel.io.User;
 
@@ -15,9 +16,9 @@ public class UserDaoImplement implements UserDao{
 	public boolean insertUser(User user) {
 		try {
 		Connection connection= SqlConnection.getInstance().getConnection();
-		String sql = "insert into user(username,password,country,name) values (?,?,?,?) ";
+		String sql = Constans.INSERT_USER;
 		PreparedStatement ps= connection.prepareStatement(sql);
-		ps.setString(1, user.getName());
+		ps.setString(1, user.getUsername());
 		ps.setString(2, user.getPassword());
 		ps.setString(3, user.getCountry());
 		ps.setString(4, user.getName());
@@ -37,7 +38,7 @@ public class UserDaoImplement implements UserDao{
 		int Id = 0;
 		try {
 			Connection connection= SqlConnection.getInstance().getConnection();
-			String sql = "select username,password,iduser from user where username=? and password=?";
+			String sql = Constans.GET_USER;
 			PreparedStatement ps= connection.prepareStatement(sql);
 			ps.setString(1, user.getUsername());
 			ps.setString(2, user.getPassword());
@@ -69,7 +70,7 @@ public class UserDaoImplement implements UserDao{
 	public boolean updatePassword(User user) {
 		try {
 		Connection connection= SqlConnection.getInstance().getConnection();
-		String sql = "Update user set password=? where iduser=?";
+		String sql = Constans.UPDATE_PASSWORD;
 		PreparedStatement ps= connection.prepareStatement(sql);
 		ps.setString(1, user.getPassword());
 		ps.setInt(2, user.getUserId());	

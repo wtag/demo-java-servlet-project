@@ -2,6 +2,7 @@ package Dao;
 
 import java.sql.SQLException;
 
+import util.Constans;
 import util.SqlConnection;
 
 import java.sql.Connection;
@@ -15,7 +16,7 @@ public class ProductDaoImplement implements ProductDao{
 	public boolean insertProduct(Product product) {
 		
 		try {
-		String sql = "insert into product(Name,price,quantity) values (?,?,?) ";
+		String sql = Constans.INSERT_PRODUCT;
 		Connection connection = SqlConnection.getInstance().getConnection();
 		PreparedStatement ps= connection.prepareStatement(sql);
 		ps.setString(1, product.getProductName());
@@ -35,7 +36,7 @@ public class ProductDaoImplement implements ProductDao{
 	@Override
 	public boolean editProduct(Product product) {
 		try {
-			String sql ="Update product set Name=?,Price=?,Quantity=? where productid=?";
+			String sql =Constans.EDIT_PRODUCT;
 			Connection connection = SqlConnection.getInstance().getConnection();
 			PreparedStatement ps= connection.prepareStatement(sql);
 			ps.setString(1, product.getProductName());
@@ -56,7 +57,7 @@ public class ProductDaoImplement implements ProductDao{
 	@Override
 	public boolean deleteProduct(Product product) {
 		try {
-			String sql = "delete from product where productid=?";
+			String sql = Constans.DELETE_PRODUCT;
 			Connection connection = SqlConnection.getInstance().getConnection();
 			PreparedStatement ps= connection.prepareStatement(sql);
 			ps.setInt(1, product.getProductId());

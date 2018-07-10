@@ -1,10 +1,6 @@
 package welldevdemocontroller.io;
 
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Dao.UserDaoImplement;
-import util.SqlConnection;
 import welldevdemomodel.io.User;
 
 
@@ -36,20 +31,20 @@ public class Login extends HttpServlet {
 			
 			int result=userDaoImplement.getUser(user);
 
-			
+			System.out.println("Login done" + result);
 			if (result>0)
 			{
+				System.out.println("done" + result + request.getContextPath() );
 				session.setAttribute("username",username);
 				session.setAttribute("password",password);
 				session.setAttribute("id",result);
 				
-				RequestDispatcher rd = request.getRequestDispatcher("Products");
-				rd.forward(request, response);	
+				response.sendRedirect(request.getContextPath()+ "/Products");
 			}
 			
 			else
 			{
-				response.sendRedirect("login.jsp");
+				response.sendRedirect(request.getContextPath());
 			}
 
 		

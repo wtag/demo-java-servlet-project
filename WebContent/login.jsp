@@ -18,7 +18,7 @@
   	<br><br/>
   	<input type="submit" value="login"/><br>
   	<br><br/>
-  	<a href="/DemoProjectServlet/signup.jsp">Sign Up </a><br>
+  	<a href="/DemoProjectServlet/signup.jsp">Sign Up</a><br>
   	
   </form>
 </div>

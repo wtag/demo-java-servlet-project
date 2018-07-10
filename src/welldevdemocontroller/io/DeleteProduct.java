@@ -1,20 +1,15 @@
 package welldevdemocontroller.io;
 
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Dao.ProductDaoImplement;
-import util.SqlConnection;
 import welldevdemomodel.io.Product;
-
-import java.sql.SQLException;
 
 @WebServlet("/DeleteProduct")
 public class DeleteProduct extends HttpServlet {
@@ -33,16 +28,24 @@ public class DeleteProduct extends HttpServlet {
 	   
 	   ProductDaoImplement productDaoImplement= new ProductDaoImplement();
 	   
-	   productDaoImplement.deleteProduct(product);
+	   boolean result = productDaoImplement.deleteProduct(product);
+	
+	   HttpSession session = request.getSession();
 		
-        HttpSession session = request.getSession();
-		
-		String username = (String) session.getAttribute("username");
+	    String username = (String) session.getAttribute("username");
+	   if(result) {
+        
 		
 		request.setAttribute("name", "Hello!! " +" " + username + " " + "Welcome!!");
-		RequestDispatcher rd = request.getRequestDispatcher("product.jsp");
-		rd.forward(request, response);
-	
+		response.sendRedirect(request.getContextPath()+ "/Products");
+	   }
+	   
+	   else {
+			
+			request.setAttribute("name", "Sorry!! " +" " + username + " " + "Delete Failed!!");
+			response.sendRedirect(request.getContextPath()+ "/Products");
+		   
+	   }
 	
 	
 	}
