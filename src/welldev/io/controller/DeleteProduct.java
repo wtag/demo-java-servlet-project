@@ -17,22 +17,14 @@ import welldev.io.model.Product;
 public class DeleteProduct extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		String username = (String) session.getAttribute("username");
-		String password = (String) session.getAttribute("password");
-		if(username==null || password==null) {
-			RequestDispatcher requestDispather = request.getRequestDispatcher("login.jsp");
-			requestDispather.forward(request, response);
-		}else {
-			ProductDAOImplementation productDao = new ProductDAOImplementation();
-			productDao.deleteProduct(request.getParameter("product_id"));
-			ArrayList<Product> product_list = productDao.retrieveAll();
-			
-			request.setAttribute("product_list", product_list);
-			RequestDispatcher requestDispather = request.getRequestDispatcher("dashboard.jsp");
-			requestDispather.forward(request, response);
-		}
 		
+		ProductDAOImplementation productDao = new ProductDAOImplementation();
+		productDao.deleteProduct(request.getParameter("product_id"));
+		ArrayList<Product> product_list = productDao.retrieveAll();
+		
+		request.setAttribute("product_list", product_list);
+		RequestDispatcher requestDispather = request.getRequestDispatcher("dashboard.jsp");
+		requestDispather.forward(request, response);
 	}
 
 

@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import welldev.io.model.Product;
+import welldev.io.utility.AllQueryStrings;
 import welldev.io.utility.DBConnection;
 
 public class ProductDAOImplementation implements ProductDAO{
@@ -22,8 +23,8 @@ public class ProductDAOImplementation implements ProductDAO{
 		try {
 			Connection dbConnection = DBConnection.getInstance().getConnection();
 			statement = dbConnection.createStatement();
-			String q = "SELECT * FROM product";
-			resultSet = statement.executeQuery(q);
+			
+			resultSet = statement.executeQuery(AllQueryStrings.allProduct);
 			while(resultSet.next()) {
 				Product pl = new Product();
 				pl.setId(resultSet.getInt("id"));
@@ -48,9 +49,8 @@ public class ProductDAOImplementation implements ProductDAO{
 		int success = 0;
 		try {
 			Connection dbConnection = DBConnection.getInstance().getConnection();
-			String str = "INSERT INTO product (product_name, quantity, price)" +
-			        "VALUES (?, ?, ?)";
-			preparedStatement = dbConnection.prepareStatement(str);
+			
+			preparedStatement = dbConnection.prepareStatement(AllQueryStrings.insertProduct);
 			preparedStatement.setString(1, product_name);
 			preparedStatement.setInt(2, quantity);
 			preparedStatement.setFloat(3, price);
@@ -69,11 +69,11 @@ public class ProductDAOImplementation implements ProductDAO{
 
 	@Override
 	public Product getById(String id) {
-		String s = "Select * from product where id=?";
+		
 		Product product = new Product();
 		try {
 			Connection dbConnection = DBConnection.getInstance().getConnection();
-			preparedStatement = dbConnection.prepareStatement(s);
+			preparedStatement = dbConnection.prepareStatement(AllQueryStrings.getProductById);
 			preparedStatement.setInt(1, Integer.parseInt(id));
 			resultSet = preparedStatement.executeQuery();
 			
@@ -99,11 +99,11 @@ public class ProductDAOImplementation implements ProductDAO{
 	@Override
 	public int updateProduct(int id, String product_name, int quantity, float price) {
 		int success = 0;
-		String s = "UPDATE product SET product_name=?, quantity=?, price=?"+" where id=?";
+		
 		
 		try {
 			Connection dbConnection = DBConnection.getInstance().getConnection();
-			preparedStatement = dbConnection.prepareStatement(s);
+			preparedStatement = dbConnection.prepareStatement(AllQueryStrings.updateProduct);
 			preparedStatement.setString(1, product_name);
 			preparedStatement.setInt(2, quantity);
 			preparedStatement.setFloat(3, price);
@@ -122,11 +122,11 @@ public class ProductDAOImplementation implements ProductDAO{
 	@Override
 	public int deleteProduct(String product_id) {
 		int success = 0;
-		String s = "delete from product where id=?";
+		
 		
 		try {
 			Connection dbConnection = DBConnection.getInstance().getConnection();
-			preparedStatement = dbConnection.prepareStatement(s);
+			preparedStatement = dbConnection.prepareStatement(AllQueryStrings.deleteProduct);
 			preparedStatement.setInt(1, Integer.parseInt(product_id));
 			success = preparedStatement.executeUpdate();
 		} catch (SQLException e1) {

@@ -16,32 +16,24 @@ import welldev.io.model.Product;
 public class InsertProduct extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		String username = (String) session.getAttribute("username");
-		String password = (String) session.getAttribute("password");
-		if(username==null || password==null) {
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
-			requestDispatcher.forward(request, response);
-		}else {
-			String product_id = request.getParameter("product_id");
-			String product_name = request.getParameter("product_name");
-			int product_quantity = Integer.parseInt(request.getParameter("product_quantity"));
-			float product_price = Float.parseFloat(request.getParameter("product_price"));
-			
-			ProductDAOImplementation productDao = new ProductDAOImplementation();
-			if(product_id==null) {
-				productDao.insertProduct(product_name, product_quantity, product_price);
-			}
-			else {
-				
-				productDao.updateProduct(Integer.parseInt(product_id), product_name, product_quantity, product_price);
-			}
-			ArrayList<Product> product_list = productDao.retrieveAll();
-			request.setAttribute("product_list", product_list);
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("dashboard.jsp");
-			requestDispatcher.forward(request, response);
-		}
 		
+		String product_id = request.getParameter("product_id");
+		String product_name = request.getParameter("product_name");
+		int product_quantity = Integer.parseInt(request.getParameter("product_quantity"));
+		float product_price = Float.parseFloat(request.getParameter("product_price"));
+		
+		ProductDAOImplementation productDao = new ProductDAOImplementation();
+		if(product_id==null) {
+			productDao.insertProduct(product_name, product_quantity, product_price);
+		}
+		else {
+			
+			productDao.updateProduct(Integer.parseInt(product_id), product_name, product_quantity, product_price);
+		}
+		ArrayList<Product> product_list = productDao.retrieveAll();
+		request.setAttribute("product_list", product_list);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("dashboard.jsp");
+		requestDispatcher.forward(request, response);
 	
 	}
 

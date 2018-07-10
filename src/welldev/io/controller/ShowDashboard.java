@@ -18,22 +18,12 @@ public class ShowDashboard extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session = request.getSession();
-		String userName = (String) session.getAttribute("username");
-		String password = (String) session.getAttribute("password");
-		if(userName==null || password==null) {
-			
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
-			requestDispatcher.forward(request, response);
-		}else {
-			
-			ProductDAOImplementation productDao = new ProductDAOImplementation();
-			List<Product> productList = productDao.retrieveAll();
-			
-			request.setAttribute("product_list", productList);
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("dashboard.jsp");
-			requestDispatcher.forward(request, response);
-		}
+		ProductDAOImplementation productDao = new ProductDAOImplementation();
+		List<Product> productList = productDao.retrieveAll();
+		
+		request.setAttribute("product_list", productList);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("dashboard.jsp");
+		requestDispatcher.forward(request, response);
 	}
 
 
