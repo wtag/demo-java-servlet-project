@@ -9,12 +9,9 @@
 <body>
 	<% 
 		String msg = (String) request.getAttribute("error");
-		if(msg==null){
-			out.println("");
-		}else{
+		if(msg!=null){
 			out.println(msg);
 		}
-	
 	%>
 	<form action="dash" method="post">
 		<label>User Name </label>

@@ -9,12 +9,9 @@
 <body>
 	<% 
 		String msg = (String) request.getAttribute("msg");
-		if(msg==null){
-			out.println("");
-		}else{
+		if(msg!=null){
 			out.println(msg+"<a href='login.jsp' style = 'margin-left:10px;'>Log In</a>");
 		}
-	
 	%>
 	<form action="updatepasswerd" method="post">
 		<input type="text" name="change" required="required">

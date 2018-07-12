@@ -35,8 +35,7 @@
 			</thead>
 				
 					<%
-							ArrayList<Product>pl = new ArrayList<>();
-							pl = (ArrayList) request.getAttribute("product_list");
+							ArrayList<Product>pl = (ArrayList) request.getAttribute("product_list");
 							if(!pl.isEmpty()){
 								for(int i=0;i<pl.size();i++){
 															
