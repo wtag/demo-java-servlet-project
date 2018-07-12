@@ -16,7 +16,7 @@
 		Country: <input type = "text" placeholder="country" name = "country" style="margin-top:20px;" required><br>
 	
 		<input type = "submit" style="margin-top:20px;" >
-		 If you are already register, Then Login <a href="login.jsp">Login</a>.    
+		 If you are already register, Then Login <a href="userlogin">Login</a>.    
                
 			
 	</form>

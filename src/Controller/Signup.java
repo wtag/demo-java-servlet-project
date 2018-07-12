@@ -22,32 +22,29 @@ public class Signup extends HttpServlet {
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 
-		String name = req.getParameter("name");
-		String pass = req.getParameter("password");
-		String username=req.getParameter("username");
-		String country =req.getParameter("country");
 		PrintWriter out=res.getWriter();
 		User user=new User();
-	    user.setName(name);
-	    user.setPassword(pass);
-	    user.setUsername(username);
-	    user.setCountry(country);
-	    
-        UserDAOImpl userActivity=new UserDAOImpl();
+		user.setName( req.getParameter("name"));
+		user.setPassword(req.getParameter("password"));
+		user.setUsername(req.getParameter("username"));
+		user.setCountry(req.getParameter("country"));
 
-		if(name.isEmpty()||pass.isEmpty()||username.isEmpty()||country.isEmpty())
-		{
-			System.out.println("Input field is empty");
-			out.println("Field must not be empty");
+		UserDAOImpl userActivity=new UserDAOImpl();
 
-		}
-		else {
-			userActivity.insertUser(user);
-
-			RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
-			rd.forward(req, res);
+         
+		boolean flag=userActivity.insertUser(user);
+        if(flag==true)
+        {
+        	RequestDispatcher rd = req.getRequestDispatcher("login.jsp");
+    		rd.forward(req, res);
+        }
+        else {
+        	RequestDispatcher rd = req.getRequestDispatcher("index.jsp");
+    		rd.forward(req, res);
 		}
 		
+
+
 	}
 
 

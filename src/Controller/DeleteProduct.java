@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -17,23 +18,24 @@ import Model.Product;
 @WebServlet("/deleteproduct")
 public class DeleteProduct extends HttpServlet{
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException  {
-
-		HttpSession session;
-		session=req.getSession();
+		PrintWriter out=res.getWriter();
 		Product product=new Product();
 		ProductDAOImpl productDAOImpl=new ProductDAOImpl();
-		
-			String id=req.getParameter("id");
-			System.out.println(id);
-			int pid=Integer.parseInt(id);
-			System.out.println(pid);
-			product.setPid(pid);
-			
-             productDAOImpl.deleteProduct(product);
-			res.sendRedirect("dashboard");
-			
 
+		product.setProId(Integer.parseInt(req.getParameter("id")));
+
+		int flag=productDAOImpl.deleteProduct(product);
+		if(flag==1) {
+			res.sendRedirect("dashboard");
+		}
+		else {
+			out.println("Product is not deleted");
+
+		}
 		
+
+
+
 
 	}
 

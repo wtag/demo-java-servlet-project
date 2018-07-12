@@ -1,7 +1,7 @@
 package Model;
 
 public class Product {
-	public int pid;
+    private int proId;
 	private String name;
 	private String quantity;
 	private String price;
@@ -13,11 +13,12 @@ public class Product {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getPid() {
-		return pid;
+	
+	public int getProId() {
+		return proId;
 	}
-	public void setPid(int pid) {
-		this.pid = pid;
+	public void setProId(int proId) {
+		this.proId = proId;
 	}
 	public String getQuantity() {
 		return quantity;

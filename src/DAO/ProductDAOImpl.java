@@ -13,32 +13,32 @@ import Model.User;
 import Utility.DBConnection;
 
 public class ProductDAOImpl implements ProductDAO {
-	private Connection dbConnection = DBConnection.getInstance().getConnection();
 	PreparedStatement statement=null;
 	ResultSet resultSet=null;
+	
+
 	@Override
 	public boolean addProduct(Product product) {
 		Connection connection=DBConnection.getInstance().getConnection();
-		String name=product.getName();
-		String quantity=product.getQuantity();
-		String price=product.getPrice();
+            boolean flag=false;
 		try {
 
 			statement = connection.prepareStatement(Constant.ADD_PRODUCT);
-			statement.setString (1, name);
-			statement.setString (2, quantity);
-			statement.setString (3, price);
+			statement.setString (1, product.getName());
+			statement.setString (2, product.getQuantity());
+			statement.setString (3, product.getPrice());
 
-			statement.execute();
-
-			System.out.println("successful");
+			flag=statement.execute();
 
 
 		} catch (SQLException e) {
 			System.out.println("something wrong" + e);
 		}
-		return true;
-		
+		finally {
+			DBConnection.getInstance().colseConnection();
+		}
+		return flag;
+
 	}
 	@Override
 	public List<Product> showProductList() {
@@ -49,14 +49,10 @@ public class ProductDAOImpl implements ProductDAO {
 			resultSet = statement.executeQuery(Constant.SHOW_PRODUCT);
 			while (resultSet.next()) {
 				Product product=new Product();
-				int id = resultSet.getInt("pro_id");
-				String name = resultSet.getString("name");
-				String price = resultSet.getString("price");
-				String quantity = resultSet.getString("quantity");
-				product.setPid(id);
-				product.setName(name);
-				product.setPrice(price);
-				product.setQuantity(quantity);
+				product.setProId(resultSet.getInt("pro_id"));;
+				product.setName(resultSet.getString("name"));
+				product.setPrice(resultSet.getString("price"));
+				product.setQuantity(resultSet.getString("quantity"));
 				productList.add(product);
 			}
 		} catch (SQLException e) {
@@ -65,24 +61,19 @@ public class ProductDAOImpl implements ProductDAO {
 		}
 		return productList;
 	}
-	public boolean getProductbyId(Product product) {
+	public void getProductbyId(Product product) {
 		Connection connection=DBConnection.getInstance().getConnection();
-		int pro_id=product.getPid();
+		int pro_Id=product.getProId();
 		try {
-		
+
 			statement = connection.prepareStatement(Constant.GETPRODUCT_BYID);
-			statement.setInt(1, pro_id);
+			statement.setInt(1, pro_Id);
 			resultSet = statement.executeQuery();
 			while(resultSet.next())
 			{
-				String name = resultSet.getString("name");
-				String quantity = resultSet.getString("quantity");
-				String price = resultSet.getString("price");
-				
-
-				product.setName(name);
-				product.setQuantity(quantity);
-				product.setPrice(price);
+				product.setName(resultSet.getString("name"));
+				product.setQuantity(resultSet.getString("quantity"));
+				product.setPrice(resultSet.getString("price"));
 
 			}
 
@@ -90,44 +81,40 @@ public class ProductDAOImpl implements ProductDAO {
 
 			e.printStackTrace();
 		}
-		return true;
+	
 	}
-	public boolean editProduct(Product product) {
+	public int editProduct(Product product) {
 		Connection connection=DBConnection.getInstance().getConnection();
-		String name=product.getName();
-		String quantity=product.getQuantity();
-		String price=product.getPrice();
-		int pro_id=product.getPid();
+		int flag=0;
 		try {
-               
-				statement = connection.prepareStatement(Constant.UPDATE_PRODUCT);
-				statement = connection.prepareStatement(Constant.UPDATE_PRODUCT);
-				statement.setString (1, name);
-				statement.setString (2, quantity);
-				statement.setString (3, price);
-				statement.setInt(4, pro_id);
 
-				statement.executeUpdate();
+			statement = connection.prepareStatement(Constant.UPDATE_PRODUCT);
+			statement.setString (1, product.getName());
+			statement.setString (2,product.getQuantity());
+			statement.setString (3, product.getPrice());
+			statement.setInt(4, product.getProId());
 
-				System.out.println("update successful");
-			} catch (SQLException e) {
-				System.out.println("something wrong" + e);
-			}
-		return true;
+			flag=statement.executeUpdate();
+
+		} catch (SQLException e) {
+			System.out.println("something wrong" + e);
+		}
+		return flag;
 	}
-	public boolean deleteProduct(Product product) {
+	public int deleteProduct(Product product) {
 		Connection connection=DBConnection.getInstance().getConnection();
-		int pro_id=product.getPid();
+		int flag=0;
+		int pro_Id=product.getProId();
 		try  {
 
 			statement=connection.prepareStatement(Constant.DELETE_PRODUCT);
-			statement.setInt(1,pro_id);
-			statement.executeUpdate();
+			statement.setInt(1,pro_Id);
+			flag=statement.executeUpdate();
 		} catch (SQLException e) {
 
 			e.printStackTrace();
 		}
-		return true;
+		return flag;
 	}
-  
+
 }

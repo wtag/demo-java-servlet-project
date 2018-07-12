@@ -4,16 +4,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.servlet.http.HttpSession;
+
 import Model.Constant;
 import Model.User;
 import Utility.*;
 public class UserDAOImpl implements UserDAO {
-	private Connection dbConnection = DBConnection.getInstance().getConnection();
 	PreparedStatement statement=null;
+	Connection connection;
 	ResultSet resultset=null;
+	
 	@Override
 	public boolean insertUser(User user) {
 		Connection connection=DBConnection.getInstance().getConnection();
+		boolean flag=false;
 		String name=user.getName();
 		String password=user.getPassword();
 		String username=user.getUsername();
@@ -25,21 +29,21 @@ public class UserDAOImpl implements UserDAO {
 			statement.setString(2,  password);
 			statement.setString(3, username); 
 			statement.setString(4, country);
-			statement.execute();
+			flag=statement.execute();
 
 			System.out.println("successful");
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			System.out.println("something wrong" + e);
 		}
 
-		return true;
+		return flag;
 
 
 	}
 	public int userLogin(User user) {
-		Connection connection=DBConnection.getInstance().getConnection();
+   connection=DBConnection.getInstance().getConnection();
 
 		int uid=0;
 		String username=user.getUsername();
@@ -56,27 +60,28 @@ public class UserDAOImpl implements UserDAO {
 
 			}
 		}catch (Exception e) {
-			// TODO: handle exception
+			
 		}
 		return uid;
 
 	}
-	public boolean updatePassword(User user) {
-		Connection connection=DBConnection.getInstance().getConnection();
-		int user_id=user.getUser_id();
+	public int updatePassword(User user) {
+		 connection=DBConnection.getInstance().getConnection();
+		 int flag=0;
+		int user_Id=user.getUser_id();
 		String password=user.getPassword();
 		try {
 
 			statement = connection.prepareStatement(Constant.UPDATE_PASSWORD);
 			statement.setString (1, password);
-			statement.setInt (2,user_id);
-			statement.executeUpdate();
+			statement.setInt (2,user_Id);
+			flag=statement.executeUpdate();
 
 			System.out.println("update successful");
 		} catch (SQLException e) {
 			System.out.println("something wrong" + e);
 		}
-		return true;
+		return flag;
 	}
 
 }

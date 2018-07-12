@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -20,33 +21,29 @@ import Model.Product;
 @WebServlet("/updateproduct")
 public class UpdateProduct extends HttpServlet{
 	public void doPost(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
-		
-		HttpSession session;
-		session=req.getSession();
+
+		PrintWriter out=response.getWriter();
 		Product product=new Product();
 		ProductDAOImpl productDAOImpl=new ProductDAOImpl();
-		String ename = req.getParameter("ename");
-		String equantity = req.getParameter("equantity");
-		String eprice=req.getParameter("eprice");;
-		String eid=req.getParameter("eid");
-		System.out.println(eid);
-		int pid=Integer.parseInt(eid);
-		System.out.println(pid);
-		
-		
-//		if(session.getAttribute("username")!=null)
-//		{
-			product.setName(ename);
-			product.setQuantity(equantity);
-			product.setPrice(eprice);
-			product.setPid(pid);
-		  productDAOImpl.editProduct(product);
-	
-		response.sendRedirect("dashboard");
-//	}
-//		else {
-//			response.sendRedirect("index.jsp");
-//		}
+
+		String eId=req.getParameter("eid");
+		int pId=Integer.parseInt(eId);
+
+		product.setName(req.getParameter("ename"));
+		product.setQuantity(req.getParameter("equantity"));
+		product.setPrice(req.getParameter("eprice"));
+		product.setProId(pId);
+		int flag=productDAOImpl.editProduct(product);
+		if(flag==1) {
+			response.sendRedirect("dashboard");
+		}
+
+		else {
+			out.println("Product update not successful");
+
+		}
 	}
+
+
 
 }

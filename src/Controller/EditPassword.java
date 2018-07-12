@@ -17,23 +17,27 @@ import Model.User;
 @WebServlet("/editpassword")
 public class EditPassword extends HttpServlet{
 	public void doPost(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
-        
+
 		UserDAOImpl userDAOImpl=new UserDAOImpl();
 		User user=new User();
 		HttpSession session;
 		session=req.getSession();
-		
-		String newpass = req.getParameter("password");
-		int u_id=(int) session.getAttribute("uid");
-		System.out.println(u_id);
-		
-		user.setPassword(newpass);
-		user.setUser_id(u_id);
-		
-        	userDAOImpl.updatePassword(user);
-    		response.sendRedirect("dashboard");
 
+		int user_Id=(int) session.getAttribute("uid");
+
+		user.setPassword(req.getParameter("password"));
+		user.setUser_id(user_Id);
+
+		int flag=userDAOImpl.updatePassword(user);
+		if(flag==1) {
+			response.sendRedirect("dashboard");
+		}
+		else {
+			response.sendRedirect("updatepassword");
+		}
 		
+
+
 	}
 
 }

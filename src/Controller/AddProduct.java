@@ -24,31 +24,25 @@ import Model.Product;
 @WebServlet("/addproduct")
 public class AddProduct extends HttpServlet {
 	public void service(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session;
-		session=req.getSession();
+		PrintWriter out=response.getWriter();
 		Product product=new Product();
 		ProductDAOImpl productDAOImpl=new ProductDAOImpl();
-		String name = req.getParameter("name");
-		String quantity = req.getParameter("quantity");
-		String price=req.getParameter("price");
-		product.setName(name);
-		product.setQuantity(quantity);
-		product.setPrice(price);
-		
-		
-
-//		if(session.getAttribute("username")!=null)
-//		{
-		  productDAOImpl.addProduct(product);
+		product.setName(req.getParameter("name"));
+		product.setQuantity(req.getParameter("quantity"));
+		product.setPrice(req.getParameter("price"));
+		boolean flag=productDAOImpl.addProduct(product);
+		if(flag==true)
+		{
 			RequestDispatcher rd = req.getRequestDispatcher("addproduct.jsp");
 			rd.forward(req, response);
+		}
+		else {
+			out.println("Product add not successful");
+
+		}
 		
 
 
-//		}
-//		else {
-//			response.sendRedirect("index.jsp");
-//		}
 
 	}
 

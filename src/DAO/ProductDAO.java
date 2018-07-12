@@ -10,8 +10,8 @@ import Model.User;
 public interface ProductDAO {
 	public boolean addProduct(Product product);
 	public List<Product> showProductList();
-	public boolean editProduct(Product product);
-	public boolean getProductbyId(Product product);
-	public boolean deleteProduct(Product product);
+	public int editProduct(Product product);
+	public void getProductbyId(Product product);
+	public int deleteProduct(Product product);
 
 }

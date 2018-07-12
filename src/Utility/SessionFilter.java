@@ -24,11 +24,10 @@ public class SessionFilter implements Filter {
 
 	public void doFilter(ServletRequest req, ServletResponse res,
 			FilterChain chain) throws IOException, ServletException {
-		System.out.println("found filter");
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
 		String userName = null;	
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
 		if(session != null) {
 			userName = (String)session.getAttribute("username");
 		}

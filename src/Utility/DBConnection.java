@@ -26,9 +26,7 @@ public class DBConnection {
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			System.out.println("Driver found");
 		} catch (ClassNotFoundException e) {
-			System.out.println("Driver not found"+e);
 		}
 		String url="jdbc:mysql://localhost:3306/dbname";
 		String user="root";
@@ -37,7 +35,6 @@ public class DBConnection {
 		try {
 			connection = DriverManager.getConnection(url, user, password);
 
-			System.out.println("successful");
 		} catch (SQLException e) {
 			System.out.println("something wrong" + e);;
 		}
@@ -46,6 +43,9 @@ public class DBConnection {
 	}
 	public Connection getConnection() {
 		return dbConnection.bdConnection(); 
+	}
+	public void colseConnection() {
+		 dbConnection=null;
 	}
 	
 }

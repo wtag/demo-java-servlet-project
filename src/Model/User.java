@@ -1,16 +1,16 @@
 package Model;
 
 public class User {
-	private int user_id;
+	private int userId;
 	private String name;
 	private String password;
 	private String username;
 	private String country;
 	public int getUser_id() {
-		return user_id;
+		return userId;
 	}
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setUser_id(int userId) {
+		this.userId = userId;
 	}
 	public String getName() {
 		return name;

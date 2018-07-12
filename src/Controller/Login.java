@@ -38,16 +38,16 @@ public class Login extends HttpServlet {
 		User user = new User();
 		user.setUsername(username);
 		user.setPassword(password);
-		
+
 		UserDAOImpl userDAOImpl=new UserDAOImpl();
 
 
 
-		int f=userDAOImpl.userLogin(user);
-		
-		if(f!=0) {
+		int user_Id=userDAOImpl.userLogin(user);
+
+		if(user_Id!=0) {
 			session=request.getSession();
-			session.setAttribute("uid", f);
+			session.setAttribute("uid", user_Id);
 			session.setAttribute("username", username);
 			session.setAttribute("password", password);
 			response.sendRedirect("dashboard");

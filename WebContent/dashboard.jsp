@@ -18,7 +18,7 @@
 		If you want to add product <a href="addproduct">AddProduct</a>. <a
 			href="updatepassword.jsp?uid=<%=session.getAttribute("uid")%>">UpdatePassword</a>.
 			<a
-			href="logout.jsp?username=<%=session.getAttribute("username")%>">Logout</a>.
+			href="logout?username=<%=session.getAttribute("username")%>">Logout</a>.
 			<%=session.getAttribute("uid")%>
 			 <h2>Product List</h2>
 			<div>
@@ -43,8 +43,8 @@
 				<td><%=product.getName()%></td>
 				<td><%=product.getPrice()%></td>
 				<td><%=product.getQuantity()%></td>
-				<td><a href="editproduct?id=<%=product.getPid()%>">
-						Edit</a><a href="deleteproduct?id=<%=product.getPid()%>">
+				<td><a href="editproduct?id=<%=product.getProId()%>">
+						Edit</a><a href="deleteproduct?id=<%=product.getProId()%>">
 						Delete</a></td>
 
 			</tr>

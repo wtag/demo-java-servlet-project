@@ -20,37 +20,26 @@ import Model.Product;
 @WebServlet("/editproduct")
 public class EditProduct extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException  {
-
-		String id=req.getParameter("id");
-		System.out.println(id);
-		int pid=Integer.parseInt(id);
-		System.out.println(pid);
-		ResultSet resultSet;
-
 		HttpSession session;
 		session=req.getSession();
+		
+		
 		Product product=new Product();
 		ProductDAOImpl productDAOImpl=new ProductDAOImpl();
+		int proId=Integer.parseInt(req.getParameter("id"));
+		product.setProId(proId);
+		productDAOImpl.getProductbyId(product);
 
-//		if(session.getAttribute("username")!=null)
-//		{
-			product.setPid(pid);
-			productDAOImpl.getProductbyId(product);
-			
-			req.setAttribute("name", product.getName());
-			req.setAttribute("quantity", product.getQuantity());
-			req.setAttribute("price", product.getPrice());
-			session.setAttribute("pid", pid);
-			req.setAttribute("pid", pid);
+		req.setAttribute("name", product.getName());
+		req.setAttribute("quantity", product.getQuantity());
+		req.setAttribute("price", product.getPrice());
+		session.setAttribute("pid", proId);
+		req.setAttribute("pid", proId);
 
-//		}
-//		else {
-//			res.sendRedirect("index.jsp");
-//		}
 
 		RequestDispatcher rd = req.getRequestDispatcher("editproduct.jsp");
 		rd.forward(req, res);
-		
+
 
 	}
 
