@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 import welldev.io.DAO.ProductDAOImplementation;
 import welldev.io.model.Product;
+import welldev.io.utility.ConstantStrings;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-@WebServlet("/showdashboard")
+@WebServlet(ConstantStrings.showdashboard)
 public class ShowDashboard extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

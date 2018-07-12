@@ -11,8 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import welldev.io.DAO.ProductDAOImplementation;
 import welldev.io.model.Product;
+import welldev.io.utility.ConstantStrings;
 
-@WebServlet("/insertproduct")
+@WebServlet(ConstantStrings.insertproduct)
 public class InsertProduct extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

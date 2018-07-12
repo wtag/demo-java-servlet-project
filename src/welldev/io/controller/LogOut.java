@@ -9,10 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import welldev.io.utility.ConstantStrings;
 import welldev.io.utility.DBConnection;
 
 
-@WebServlet("/logout")
+@WebServlet(ConstantStrings.logout)
 public class LogOut extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

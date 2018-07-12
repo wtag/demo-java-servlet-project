@@ -8,16 +8,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import welldev.io.utility.ConstantStrings;
 
-@WebServlet(ConstantStrings.addproduct)
-public class GoToAddProduct extends HttpServlet {
+@WebServlet(ConstantStrings.changepassword)
+public class ChangePassword extends HttpServlet {
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("addproduct.jsp");
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("changepass.jsp");
 		requestDispatcher.forward(request, response);
 	}
+
 
 }

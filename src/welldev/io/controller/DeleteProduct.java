@@ -12,8 +12,9 @@ import javax.servlet.http.HttpSession;
 
 import welldev.io.DAO.ProductDAOImplementation;
 import welldev.io.model.Product;
+import welldev.io.utility.ConstantStrings;
 
-@WebServlet("/deleteproduct")
+@WebServlet(ConstantStrings.deletepro)
 public class DeleteProduct extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

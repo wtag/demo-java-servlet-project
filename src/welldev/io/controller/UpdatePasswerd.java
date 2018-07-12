@@ -10,8 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import welldev.io.DAO.UserDaoImplementation;
+import welldev.io.utility.ConstantStrings;
 
-@WebServlet("/updatepasswerd")
+@WebServlet(ConstantStrings.updatepassword)
 public class UpdatePasswerd extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

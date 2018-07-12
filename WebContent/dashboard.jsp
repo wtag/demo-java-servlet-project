@@ -17,7 +17,7 @@
 <body>
 	<form action="addproduct" method="post" style="margin-top:30px; text-align: center;">
 		<input type="submit" value="Add Product">
-		<a href="changepass.jsp">Change Password</a>
+		<a href="changepassword" style='margin-right: 20px;'>Change Password</a>
 		<a href="logout">Log Out</a>
 	</form>
 	
@@ -35,17 +35,17 @@
 			</thead>
 				
 					<%
-										ArrayList<Product>pl = new ArrayList<>();
-													pl = (ArrayList) request.getAttribute("product_list");
-													if(!pl.isEmpty()){
-														for(int i=0;i<pl.size();i++){
+							ArrayList<Product>pl = new ArrayList<>();
+							pl = (ArrayList) request.getAttribute("product_list");
+							if(!pl.isEmpty()){
+								for(int i=0;i<pl.size();i++){
 															
-															out.println("<tr><td id = 'pid'>"+pl.get(i).getId()+"</td><td>"+pl.get(i).getName()+"</td>"+"<td>"+pl.get(i).getQuantity()+"</td>"+"<td>"+pl.get(i).getPrice()+"</td><td><a href = 'editproduct?product_id="+pl.get(i).getId()+"' style='margin-right: 20px;'>Edit</a><a href = 'deleteproduct?product_id="+pl.get(i).getId()+"'>Delete</a></td></tr>");
-														}
-													}else{
-														out.println("<tr><td colspan='5' align='center'>No Data To Show</td></tr>");
-													}
-									%>
+									out.println("<tr><td id = 'pid'>"+pl.get(i).getId()+"</td><td>"+pl.get(i).getName()+"</td>"+"<td>"+pl.get(i).getQuantity()+"</td>"+"<td>"+pl.get(i).getPrice()+"</td><td><a href = 'editproduct?product_id="+pl.get(i).getId()+"' style='margin-right: 20px;'>Edit</a><a href = 'deleteproduct?product_id="+pl.get(i).getId()+"'>Delete</a></td></tr>");
+								}
+							}else{
+								out.println("<tr><td colspan='5' align='center'>No Data To Show</td></tr>");
+							}
+					%>
 				
 			<tbody>
 			</tbody>
@@ -53,10 +53,6 @@
 	</div>
 	
 </body>
-<style>
-	a{
-		margin-right:20px;
-	}
-</style>
+
 </html>
 

@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import welldev.io.model.Product;
-import welldev.io.utility.AllQueryStrings;
+import welldev.io.utility.ConstantStrings;
 import welldev.io.utility.DBConnection;
 
 public class ProductDAOImplementation implements ProductDAO{
@@ -19,12 +19,13 @@ public class ProductDAOImplementation implements ProductDAO{
 
 	@Override
 	public ArrayList<Product> retrieveAll() {
+		Connection dbConnection = null;
 		ArrayList<Product>productList = new ArrayList<>();
 		try {
-			Connection dbConnection = DBConnection.getInstance().getConnection();
+			dbConnection = DBConnection.getInstance().getConnection();
 			statement = dbConnection.createStatement();
 			
-			resultSet = statement.executeQuery(AllQueryStrings.allProduct);
+			resultSet = statement.executeQuery(ConstantStrings.allProduct);
 			while(resultSet.next()) {
 				Product pl = new Product();
 				pl.setId(resultSet.getInt("id"));
@@ -41,16 +42,23 @@ public class ProductDAOImplementation implements ProductDAO{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		try {
+			dbConnection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return productList;
 	}
 
 	@Override
 	public int insertProduct(String product_name, int quantity, float price) {
 		int success = 0;
+		Connection dbConnection =null;
 		try {
-			Connection dbConnection = DBConnection.getInstance().getConnection();
+			dbConnection = DBConnection.getInstance().getConnection();
 			
-			preparedStatement = dbConnection.prepareStatement(AllQueryStrings.insertProduct);
+			preparedStatement = dbConnection.prepareStatement(ConstantStrings.insertProduct);
 			preparedStatement.setString(1, product_name);
 			preparedStatement.setInt(2, quantity);
 			preparedStatement.setFloat(3, price);
@@ -64,18 +72,24 @@ public class ProductDAOImplementation implements ProductDAO{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		try {
+			dbConnection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return success;
 	}
 
 	@Override
 	public Product getById(String id) {
-		
+		Connection dbConnection = null;
 		Product product = new Product();
 		try {
-			Connection dbConnection = DBConnection.getInstance().getConnection();
-			preparedStatement = dbConnection.prepareStatement(AllQueryStrings.getProductById);
+			dbConnection = DBConnection.getInstance().getConnection();
+			preparedStatement = dbConnection.prepareStatement(ConstantStrings.getProductById);
 			preparedStatement.setInt(1, Integer.parseInt(id));
-			resultSet = preparedStatement.executeQuery();
+			resultSet = preparedStatement.executeQuery();			
 			
 			while(resultSet.next()) {
 				product.setId(resultSet.getInt("id"));
@@ -93,17 +107,23 @@ public class ProductDAOImplementation implements ProductDAO{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		try {
+			dbConnection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return product;
 	}
 
 	@Override
 	public int updateProduct(int id, String product_name, int quantity, float price) {
 		int success = 0;
-		
+		Connection dbConnection = null;
 		
 		try {
-			Connection dbConnection = DBConnection.getInstance().getConnection();
-			preparedStatement = dbConnection.prepareStatement(AllQueryStrings.updateProduct);
+			dbConnection = DBConnection.getInstance().getConnection();
+			preparedStatement = dbConnection.prepareStatement(ConstantStrings.updateProduct);
 			preparedStatement.setString(1, product_name);
 			preparedStatement.setInt(2, quantity);
 			preparedStatement.setFloat(3, price);
@@ -116,23 +136,35 @@ public class ProductDAOImplementation implements ProductDAO{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		try {
+			dbConnection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return success;
 	}
 
 	@Override
 	public int deleteProduct(String product_id) {
 		int success = 0;
-		
+		Connection dbConnection = null;
 		
 		try {
-			Connection dbConnection = DBConnection.getInstance().getConnection();
-			preparedStatement = dbConnection.prepareStatement(AllQueryStrings.deleteProduct);
+			dbConnection = DBConnection.getInstance().getConnection();
+			preparedStatement = dbConnection.prepareStatement(ConstantStrings.deleteProduct);
 			preparedStatement.setInt(1, Integer.parseInt(product_id));
 			success = preparedStatement.executeUpdate();
 		} catch (SQLException e1) {
 			
 			e1.printStackTrace();
 		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			dbConnection.close();
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

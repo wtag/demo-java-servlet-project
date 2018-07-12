@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import welldev.io.model.User;
-import welldev.io.utility.AllQueryStrings;
+import welldev.io.utility.ConstantStrings;
 import welldev.io.utility.DBConnection;
 
 public class UserDaoImplementation implements UserDAO{
@@ -18,11 +18,11 @@ public class UserDaoImplementation implements UserDAO{
 	public int insertUser(User user) {
 		
 		int success = 0;
-		
+		Connection dbConnection = null;
 		try {
 			
-			Connection dbConnection = DBConnection.getInstance().getConnection();
-			preparedStatement = dbConnection.prepareStatement(AllQueryStrings.signup);
+			dbConnection = DBConnection.getInstance().getConnection();
+			preparedStatement = dbConnection.prepareStatement(ConstantStrings.signup);
 			preparedStatement.setString(1, user.getUserName());
 			preparedStatement.setString(2, user.getPassword());
 			preparedStatement.setString(3, user.getName());
@@ -36,16 +36,22 @@ public class UserDaoImplementation implements UserDAO{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		try {
+			dbConnection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return success;
 	}
 
 	@Override
 	public int checkIfUser(String username, String password) {
 		int result = 0;
-		
+		Connection dbConnection =null;
 		try {
-			Connection dbConnection = DBConnection.getInstance().getConnection();
-			preparedStatement = dbConnection.prepareStatement(AllQueryStrings.login);
+			dbConnection = DBConnection.getInstance().getConnection();
+			preparedStatement = dbConnection.prepareStatement(ConstantStrings.login);
 			preparedStatement.setString(1, username);
 			preparedStatement.setString(2, password);
 			resultSet = preparedStatement.executeQuery();
@@ -59,17 +65,22 @@ public class UserDaoImplementation implements UserDAO{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		try {
+			dbConnection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return result;
 	}
 
 	@Override
 	public int updatePassword(String username, String password) {
 		int success = 0;
-		
+		Connection dbConnection = null;
 		try {
-			Connection dbConnection = DBConnection.getInstance().getConnection();
-			preparedStatement = dbConnection.prepareStatement(AllQueryStrings.updatePassword);
+			dbConnection = DBConnection.getInstance().getConnection();
+			preparedStatement = dbConnection.prepareStatement(ConstantStrings.updatePassword);
 			preparedStatement.setString(1, password);
 			preparedStatement.setString(2, username);
 			success = preparedStatement.executeUpdate();
@@ -77,6 +88,12 @@ public class UserDaoImplementation implements UserDAO{
 			
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			dbConnection.close();
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
