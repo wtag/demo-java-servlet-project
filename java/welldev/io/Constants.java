@@ -8,4 +8,5 @@ public final class Constants {
 	public static final String updatePassword = "Update User SET password =:password where id =:id";
 	
 	public static final String insertuseruri = "/insertuser";
+	public static final String checkuser = "/checkuser";
 }

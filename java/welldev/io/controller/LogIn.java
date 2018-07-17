@@ -1,6 +1,7 @@
 package welldev.io.controller;
 
 import java.io.IOException;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,8 +12,9 @@ import javax.servlet.http.HttpSession;
 
 import welldev.io.DAO.UserDaoImp;
 import welldev.io.model.User;
+import welldev.io.Constants;
 
-@WebServlet("/checkuser")
+@WebServlet(Constants.checkuser)
 public class LogIn extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
