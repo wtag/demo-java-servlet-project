@@ -1,0 +1,134 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+  <welcome-file-list>
+  	<welcome-file>login.jsp</welcome-file>
+  </welcome-file-list>
+   <filter>
+  	<filter-name>AuthenticationFilter</filter-name>
+  	<filter-class>welldev.io.AuthenticationFilter</filter-class>
+  </filter>
+  <filter-mapping>
+	 	<filter-name>AuthenticationFilter</filter-name>
+	 	<url-pattern>/ShowDashboard</url-pattern>
+	 </filter-mapping> 
+	 <filter-mapping>
+	 	<filter-name>AuthenticationFilter</filter-name>
+	 	<url-pattern>/GoToAddProduct</url-pattern>
+	 </filter-mapping> 
+	 <filter-mapping>
+	 	<filter-name>AuthenticationFilter</filter-name>
+	 	<url-pattern>/InsertProduct</url-pattern>
+	 </filter-mapping> 
+	 <filter-mapping>
+	 	<filter-name>AuthenticationFilter</filter-name>
+	 	<url-pattern>/EditProduct</url-pattern>
+	 </filter-mapping> 
+	 <filter-mapping>
+	 	<filter-name>AuthenticationFilter</filter-name>
+	 	<url-pattern>/DeleteProduct</url-pattern>
+	 </filter-mapping> 
+	 <filter-mapping>
+	 	<filter-name>AuthenticationFilter</filter-name>
+	 	<url-pattern>/ChangePassword</url-pattern>
+	 </filter-mapping>
+	 <filter-mapping>
+	 	<filter-name>AuthenticationFilter</filter-name>
+	 	<url-pattern>/UpdatePassword</url-pattern>
+	 </filter-mapping> 
+	 <filter-mapping>
+	 	<filter-name>AuthenticationFilter</filter-name>
+	 	<url-pattern>/LogOut</url-pattern>
+	 </filter-mapping>  
+
+  <servlet>
+  	<servlet-name>GotoSignUp</servlet-name>
+  	
+  	<servlet-class>welldev.io.controller.GotoSignUp</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>GoToLogIn</servlet-name>
+  	
+  	<servlet-class>welldev.io.controller.GoToLogIn</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ShowDashboard</servlet-name>
+  	
+  	<servlet-class>welldev.io.controller.ShowDashboard</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>GoToAddProduct</servlet-name>
+  	
+  	<servlet-class>welldev.io.controller.GoToAddProduct</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>InsertProduct</servlet-name>
+  	
+  	<servlet-class>welldev.io.controller.InsertProduct</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>EditProduct</servlet-name>
+  	
+  	<servlet-class>welldev.io.controller.EditProduct</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>DeleteProduct</servlet-name>
+  	
+  	<servlet-class>welldev.io.controller.DeleteProduct</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ChangePassword</servlet-name>
+  	<servlet-class>welldev.io.controller.ChangePassword</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>UpdatePassword</servlet-name>
+  	<servlet-class>welldev.io.controller.UpdatePassword</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>LogOut</servlet-name>	
+  	<servlet-class>welldev.io.controller.LogOut</servlet-class>
+  </servlet> 
+   <servlet-mapping>
+  	<servlet-name>GotoSignUp</servlet-name>
+  	<url-pattern>/GotoSignUp</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>GoToLogIn</servlet-name>
+  	<url-pattern>/GoToLogIn</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ShowDashboard</servlet-name>
+  	<url-pattern>/ShowDashboard</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>GoToAddProduct</servlet-name>
+  	<url-pattern>/GoToAddProduct</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>InsertProduct</servlet-name>
+  	<url-pattern>/InsertProduct</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>EditProduct</servlet-name>
+  	<url-pattern>/EditProduct</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>DeleteProduct</servlet-name>
+  	<url-pattern>/DeleteProduct</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ChangePassword</servlet-name>
+  	<url-pattern>/ChangePassword</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>UpdatePassword</servlet-name>
+  	<url-pattern>/UpdatePassword</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>LogOut</servlet-name>
+  	<url-pattern>/LogOut</url-pattern>
+  </servlet-mapping>
+</web-app>
